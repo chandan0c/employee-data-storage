@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>npm and json server</title>
+</head>
+<body>
+    <h3>employee data will be shown here</h3>
+    <input type="text" placeholder="enter your name" id="name"> <br>
+    <input type="text" placeholder="enter your age" id="age"> <br>
+    <input type="text" placeholder="enter your gender" id="gender"> <br>
+    <input type="text" placeholder="enter your deaprtment" id="department"> <br>
+    <input type="text" placeholder="enter your salary" id="salary"> <br>
+    <button onclick="myfun1()">submit</button>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+   
+    
+     async function myfun1(){
+        event.preventDefault();
+
+        let name=document.getElementById("name").value;
+        let age=document.getElementById("age").value;
+        let gender=document.getElementById("gender").value;
+        let deaprtment=document.getElementById("department").value;
+        let salary=document.getElementById("salary").value;
+        console.log("Sdadas",name,age,gender,deaprtment,salary)
+        await fetch("http://localhost:3000/employees/1",{
+            method:"PATCH",
+            body:JSON.stringify({})
+        }).then(res=>{
+            console.log(res)
+        })
+     }
+     async function myfun2(){
+        let data=await fetch("http://localhost:3000/employees");
+        let res=await data.json();
+        console.log(res)
+        res.forEach(ele=> {
+           let p1=document.createElement("p");
+           p1.innerText=ele.salary;
+           document.getElementById("container").append(p1);
+        });
+     }
+     myfun2();
+</script>
